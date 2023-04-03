@@ -10,13 +10,15 @@ public interface TelevisoreService {
 	public void setTelevisoreDao(TelevisoreDAO televisoreDao);
 	public List<Televisore> listAll() throws Exception;
 
-	public Televisore findById(Long idInput) throws Exception;
+	public List<Televisore> cercaComeEsempio(Televisore input) throws Exception;
 
 	public int aggiorna(Televisore input) throws Exception;
 
 	public int inserisciNuovo(Televisore input) throws Exception;
 
 	public int rimuovi(Long input) throws Exception;
+	
+	public List<Televisore> cercaComeId(Long input) throws Exception;
 	
 	public Televisore qualeEIlTelevisorePiuGrande() throws Exception;
 	

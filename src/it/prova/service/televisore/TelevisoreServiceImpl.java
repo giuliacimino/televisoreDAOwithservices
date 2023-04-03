@@ -36,9 +36,24 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 		return result;
 	}
 
-	public Televisore findById(Long idInput) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Televisore> cercaComeEsempio(Televisore input) throws Exception {
+		if (input == null)
+			throw new Exception("Valore di input non ammesso.");
+		
+		List<Televisore> result = new ArrayList<Televisore>();
+		try(Connection connection = MyConnection.getConnection(Constants.DRIVER_NAME, Constants.CONNECTION_URL)) {
+
+			// inietto la connection nel dao
+			televisoreDao.setConnection(connection);
+
+			// eseguo quello che realmente devo fare
+			result = televisoreDao.findByExample(input);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} 
+		return result;
 	}
 
 	public int aggiorna(Televisore input) throws Exception {
@@ -100,6 +115,11 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 		}
 		return result;
 	}
+	
+	public List cercaComeId(Long input) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public Televisore qualeEIlTelevisorePiuGrande() throws Exception {
 	
@@ -121,14 +141,36 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 
 	public int quantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(LocalDate data1, LocalDate data2)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		if (data1 == null) {
+			throw new Exception("Valore non ammesso.");
+		}
+		if(data2== null) {
+			throw new Exception("valore non ammesso.");
+		}
+		
+		int result = 0;
+		try(Connection connection = MyConnection.getConnection(Constants.DRIVER_NAME, Constants.CONNECTION_URL)) {
+
+			// inietto la connection nel dao
+			televisoreDao.setConnection(connection);
+
+			// eseguo quello che realmente devo fare
+			result = televisoreDao.howManyTelevisionsWereProducedInARange(data1, data2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return result;
 	}
 
 	public List marcaTelevisoriProdottiNegliUltimiSeiMesi() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 
 
 	

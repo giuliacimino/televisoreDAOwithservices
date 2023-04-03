@@ -15,21 +15,25 @@ public class TestTelevisore {
 		
 		try {
 			
-			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			
+//			testInserisciNuovo(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			
+//			testAggiorna(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			
+//			testRimuovi(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			
+//			testQualeEIlTelevisorePiuGrande(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 			
-			testInserisciNuovo(televisoreService);
-			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
-			
-			testAggiorna(televisoreService);
-			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
-			
-			testRimuovi(televisoreService);
-			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
-			
-			testQualeEIlTelevisorePiuGrande(televisoreService);
-			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+//			testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 
-			
+			testCercaComeExample(televisoreService);
+			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 
 			
 			
@@ -100,5 +104,36 @@ public class TestTelevisore {
 		System.out.println("........testQualeEIlTelevisorePiuGrande fine.........");
 	}
 	
+	//
+	private static void testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(TelevisoreService televisoreService) throws Exception{
+		System.out.println(".........testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate inizio..............");
+		List<Televisore> interoContenutoTabella = televisoreService.listAll();
+		if (interoContenutoTabella.isEmpty() || interoContenutoTabella.get(0) == null)
+			throw new Exception("errore: non ci sono voci");
+		LocalDate dataIniziale= LocalDate.parse("2020-01-01");
+		LocalDate dataFinale= LocalDate.parse("2023-12-30");
+		int quantiTelevisoriTraData= televisoreService.quantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(dataIniziale, dataFinale);
+		System.out.println(quantiTelevisoriTraData);
+		System.out.println(".........testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate fine..............");
+
+	}
+	
+	
+	//
+	private static void testCercaComeExample (TelevisoreService televisoreService) throws Exception {
+		System.out.println("......testCercaComeExample inizio.......");
+		List<Televisore> elencoTelevisori= televisoreService.listAll();
+		if (elencoTelevisori.size()<1) {
+			throw new RuntimeException("errore: non sono presenti compagnie sul db");
+		}
+		Televisore televisoreExample= new Televisore("apple");
+		List<Televisore> elencoTelevisoriComeExample= televisoreService.cercaComeEsempio(televisoreExample);
+		if (elencoTelevisoriComeExample.size()<1) {
+			throw new RuntimeException("errore: non sono presenti voci nel db.");
+		}
+		System.out.println("gli elementi presenti sono "+elencoTelevisoriComeExample.size());
+		System.out.println(elencoTelevisoriComeExample);
+		System.out.println("......testCercaComeExample fine.......");
+	}
 
 }

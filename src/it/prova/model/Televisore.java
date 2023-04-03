@@ -7,7 +7,7 @@ public class Televisore {
 	private String marca;
 	private String modello;
 	private int pollici;
-	private LocalDate dataproduzione;
+	private LocalDate dataProduzione;
 	
 	
 	public Televisore () {
@@ -18,7 +18,7 @@ public class Televisore {
 		this.marca=marca;
 		this.modello=modello;
 		this.pollici=pollici;
-		this.dataproduzione=dataproduzione;
+		this.dataProduzione=dataProduzione;
 	}
 	
 	public Televisore (String marca) {
@@ -57,18 +57,18 @@ public class Televisore {
 		this.pollici = pollici;
 	}
 
-	public LocalDate getDataproduzione() {
-		return dataproduzione;
+	public LocalDate getDataProduzione() {
+		return dataProduzione;
 	}
 
-	public void setDataproduzione(LocalDate dataproduzione) {
-		this.dataproduzione = dataproduzione;
+	public void setDataProduzione(LocalDate dataProduzione) {
+		this.dataProduzione = dataProduzione;
 	}
 
 	@Override
 	public String toString() {
 		return "Televisore [id=" + id + ", marca=" + marca + ", modello=" + modello + ", pollici=" + pollici
-				+ ", dataproduzione=" + dataproduzione + "]";
+				+ ", dataproduzione=" + dataProduzione + "]";
 	}
 	
 	
