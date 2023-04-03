@@ -12,7 +12,7 @@ public interface IBaseDAO<T> {
 
 	public int insert(T input) throws Exception;
 
-	public int delete(T input) throws Exception;
+	public int delete(Long input) throws Exception;
 
 	public List<T> findByExample(T input) throws Exception;
 	

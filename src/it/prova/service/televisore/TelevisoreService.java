@@ -16,7 +16,7 @@ public interface TelevisoreService {
 
 	public int inserisciNuovo(Televisore input) throws Exception;
 
-	public int rimuovi(Televisore input) throws Exception;
+	public int rimuovi(Long input) throws Exception;
 	
 	public Televisore qualeEIlTelevisorePiuGrande() throws Exception;
 	
