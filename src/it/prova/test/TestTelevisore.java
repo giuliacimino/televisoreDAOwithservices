@@ -32,7 +32,10 @@ public class TestTelevisore {
 //			testQuantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(televisoreService);
 //			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 
-			testCercaComeExample(televisoreService);
+//			testCercaComeExample(televisoreService);
+//			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
+			
+			testMarcaTelevisoriProdottiNegliUltimiSeiMesi(televisoreService);
 			System.out.println("in tabella ci sono " +televisoreService.listAll().size()+ " elementi.");
 
 			
@@ -134,6 +137,23 @@ public class TestTelevisore {
 		System.out.println("gli elementi presenti sono "+elencoTelevisoriComeExample.size());
 		System.out.println(elencoTelevisoriComeExample);
 		System.out.println("......testCercaComeExample fine.......");
+	}
+	
+	//
+	private static void testMarcaTelevisoriProdottiNegliUltimiSeiMesi (TelevisoreService televisoreService) throws Exception{
+		System.out.println("......testMarcaTelevisoriProdottiNegliUltimiSeiMesi inizio.......");
+		List<Televisore> elencoTelevisori= televisoreService.listAll();
+		if (elencoTelevisori.size()<1) {
+			throw new RuntimeException("errore: non sono presenti voci nel db.");
+		}
+		List<String> elencoMarcheNegliUltimiSeiMesi= televisoreService.marcaTelevisoriProdottiNegliUltimiSeiMesi();
+		if (elencoMarcheNegliUltimiSeiMesi.size()<1) {
+			throw new RuntimeException("errore: non sono presenti corrispondenze");
+		}
+		System.out.println("gli elementi sono" + elencoMarcheNegliUltimiSeiMesi.size());
+		System.out.println(elencoMarcheNegliUltimiSeiMesi);
+		System.out.println("......testMarcaTelevisoriProdottiNegliUltimiSeiMesi fine.......");
+
 	}
 
 }

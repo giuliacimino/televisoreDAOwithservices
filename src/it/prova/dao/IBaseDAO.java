@@ -16,7 +16,6 @@ public interface IBaseDAO<T> {
 
 	public List<T> findByExample(T input) throws Exception;
 	
-	public List<T> findById(Long input) throws Exception;
 	
 	//questo mi serve per la injection della connection
 	public void setConnection(Connection connection);

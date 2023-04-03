@@ -116,10 +116,6 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 		return result;
 	}
 	
-	public List cercaComeId(Long input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public Televisore qualeEIlTelevisorePiuGrande() throws Exception {
 	
@@ -165,8 +161,20 @@ public class TelevisoreServiceImpl implements TelevisoreService {
 	}
 
 	public List marcaTelevisoriProdottiNegliUltimiSeiMesi() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> result = new ArrayList<>();
+		try(Connection connection = MyConnection.getConnection(Constants.DRIVER_NAME, Constants.CONNECTION_URL)) {
+
+			// inietto la connection nel dao
+			televisoreDao.setConnection(connection);
+
+			// eseguo quello che realmente devo fare
+			result = televisoreDao.marcaOfTelevisionsProducedInTheLastSixMonths();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} 
+		return result;
 	}
 
 

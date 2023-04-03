@@ -12,7 +12,7 @@ import it.prova.dao.AbstractMySQLDAO;
 import it.prova.model.Televisore;
 
 public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO {
-	
+
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
@@ -30,7 +30,8 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 				televisoreTemp.setMarca(rs.getString("marca"));
 				televisoreTemp.setModello(rs.getString("modello"));
 				televisoreTemp.setPollici(rs.getInt("pollici"));
-				televisoreTemp.setDataProduzione(rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);
+				televisoreTemp.setDataProduzione(
+						rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);
 				televisoreTemp.setId(rs.getLong("ID"));
 				result.add(televisoreTemp);
 			}
@@ -59,12 +60,13 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 					result.setMarca(rs.getString("marca"));
 					result.setModello(rs.getString("modello"));
 					result.setPollici(rs.getInt("pollici"));
-					result.setDataProduzione(rs.getDate("dataproduzione") !=null ? rs.getDate("dataproduzione").toLocalDate() : null);
+					result.setDataProduzione(
+							rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);
 					result.setId(rs.getLong("id"));
 				} else {
 					result = null;
 				}
-			} 
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,14 +138,6 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		}
 		return result;
 	}
-	
-	//================================
-	public List findById(Long input) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 
 	public List<Televisore> findByExample(Televisore input) throws Exception {
 		if (isNotActive())
@@ -167,7 +161,6 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 			query += " and pollici = '" + input.getPollici() + " ' ";
 		}
 
-
 		if (input.getDataProduzione() != null) {
 			query += " and dataproduzione='" + java.sql.Date.valueOf(input.getDataProduzione()) + "' ";
 		}
@@ -180,7 +173,9 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 				televisoreTemp.setMarca(rs.getString("marca"));
 				televisoreTemp.setModello(rs.getString("modello"));
 				televisoreTemp.setPollici(rs.getInt("pollici"));
-				televisoreTemp.setDataProduzione(rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);;
+				televisoreTemp.setDataProduzione(
+						rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);
+				;
 				televisoreTemp.setId(rs.getLong("id"));
 				result.add(televisoreTemp);
 			}
@@ -190,8 +185,6 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		}
 		return result;
 	}
-	
-
 
 	public Televisore whichTelevisionIsTheBiggest() throws Exception {
 		if (isNotActive())
@@ -217,8 +210,6 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		}
 		return temp;
 	}
-			
-		
 
 	public int howManyTelevisionsWereProducedInARange(LocalDate data1, LocalDate data2) throws Exception {
 		if (isNotActive())
@@ -227,7 +218,7 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		if (data1 == null) {
 			throw new Exception("Valore non ammesso.");
 		}
-		if (data2==null) {
+		if (data2 == null) {
 			throw new Exception("valore non ammesso.");
 		}
 		int count = 0;
@@ -249,36 +240,25 @@ public class TelevisoreDAOImpl extends AbstractMySQLDAO implements TelevisoreDAO
 		return count;
 	}
 
+	public List<String> marcaOfTelevisionsProducedInTheLastSixMonths() throws Exception {
+		if (isNotActive())
+			throw new Exception("Connessione non attiva. Impossibile effettuare operazioni DAO.");
+		List<String> marche = new ArrayList<String>();
+		try (PreparedStatement ps = connection
+				.prepareStatement("select distinct (marca) from televisore t where t.dataproduzione > ?")) {
+			ps.setDate(1, java.sql.Date.valueOf(LocalDate.now().minusMonths(6)));
+			try (ResultSet rs = ps.executeQuery()) {
 
-	public List<String> MarcaOfTelevisionsProducedInTheLastSixMonths() throws Exception {
-		return null;
+				while (rs.next()) {
+					String marcaTemp = "";
+					marcaTemp = rs.getString("marca");
+					marche.add(marcaTemp);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+			return marche;
+		}
 	}
-
-
 }
-//		if (isNotActive())
-//			throw new Exception("Connessione non attiva. Impossibile effettuare operazioni DAO.");
-//		List<String> marche = new ArrayList<String>();
-//		try (PreparedStatement ps = connection.prepareStatement(
-//				"select marca from televisore t where t.dataproduzione > ?")) {
-//			ResultSet rs = ps.executeQuery();
-//			if (rs.next()) {
-//				Televisore temp = new Televisore();
-//				temp.setMarca(rs.getString("marca"));
-//				temp.setModello(rs.getString("modello"));
-//				temp.setPollici(rs.getInt("pollici"));
-//				temp.setDataproduzione(
-//						rs.getDate("dataproduzione") != null ? rs.getDate("dataproduzione").toLocalDate() : null);
-//				temp.setId(rs.getLong("id"));
-//			} else {
-//				marche = null;
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		return marche;
-//	}
-//	
-//
-//}

@@ -17,9 +17,7 @@ public interface TelevisoreService {
 	public int inserisciNuovo(Televisore input) throws Exception;
 
 	public int rimuovi(Long input) throws Exception;
-	
-	public List<Televisore> cercaComeId(Long input) throws Exception;
-	
+		
 	public Televisore qualeEIlTelevisorePiuGrande() throws Exception;
 	
 	public int quantiTelevisoriSonoStatiProdottiInUnIntervalloDiDate(LocalDate data1, LocalDate data2) throws Exception;
